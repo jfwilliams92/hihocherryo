@@ -1,4 +1,5 @@
 # test to see how long it takes to play different permutations of the game
+# some test plots, will move to a Jupyter Notebook
 import hihocherryo
 import matplotlib.pyplot as plt
 from collections import Counter
@@ -13,7 +14,7 @@ for num_players in range(1, 5):
         "winner_ix": []
     }
 
-    for game in range(1000):
+    for game in range(100000):
         g = hihocherryo.HiHoCherryO(num_players=num_players, verbose=False)
         num_rounds, num_turns, winner, winner_ix = g.play_game()
         stats["num_rounds"].append(num_rounds)
@@ -50,4 +51,6 @@ fig, ax = plt.subplots(2, 2, figsize=(15,15))
 ax = ax.flatten()
 for num_players in range(1, 5):
     winner_ix_count = Counter(all_game_stats[num_players]["winner_ix"])
-    ax[num_players - 1].bar(list(winner_ix_count.keys()), list(winner_ix_count.values()))
+    keys = list(winner_ix_count.keys())
+    counts = list(winner_ix_count.values())
+    ax[num_players - 1].bar(keys, counts, tick_label=keys)
