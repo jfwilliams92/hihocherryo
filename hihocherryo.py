@@ -1,6 +1,6 @@
 import random
 
-class Game():
+class HiHoCherryO():
     def __init__(self, num_players):
         
         try:
@@ -39,7 +39,7 @@ class Game():
             
             current_player_ix = current_player_ix + 1 if current_player_ix < (self.num_players - 1) else 0
 
-        print("Game over!")
+        print("Game over! Hi ho Cherry-O!!!")
         
         return self.num_rounds, self.num_turns, current_player.fruit
 
