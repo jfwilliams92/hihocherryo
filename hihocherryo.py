@@ -37,16 +37,18 @@ class HiHoCherryO():
             
             continue_play = current_player.play_turn(self.gamewheel, self.verbose)
             
-            if continue_play and self.verbose:
+                
+            if self.verbose:
                 print(f"{current_player.fruit}' basket has {current_player.basket}")
                 print(f"{current_player.fruit}' tree has {current_player.tree}")
             
-            current_player_ix = current_player_ix + 1 if current_player_ix < (self.num_players - 1) else 0
+            if continue_play:
+                current_player_ix = current_player_ix + 1 if current_player_ix < (self.num_players - 1) else 0
 
         if self.verbose:
             print("Game over! Hi ho Cherry-O!!!")
         
-        return self.num_rounds, self.num_turns, current_player.fruit
+        return self.num_rounds, self.num_turns, current_player.fruit, current_player_ix
 
 
 class Player():
