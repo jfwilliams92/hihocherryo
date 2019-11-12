@@ -11,40 +11,54 @@ class Game():
         self.num_players = num_players
         player_options = ["Blueberries", "Apples", "Grapes", "Oranges"]
         random.shuffle(player_options)
-        self.players = [Player(color=c) for c in player_options[:num_players]]
+        self.players = [Player(fruit=f) for f in player_options[:num_players]]
 
         self.gamewheel = GameWheel()
+
+        self.num_turns = 0
+        self.num_rounds = 0
 
     def play_game(self):
         continue_play = True
         current_player_ix = 0
         while continue_play:
+            if current_player_ix == 0:
+                self.num_rounds += 1
+            self.num_turns += 1
+
             current_player = self.players[current_player_ix]
-            print(f"{current_player.color}' turn!")
-            print(f"{current_player.color}' basket has {current_player.basket}")
-            print(f"{current_player.color}' tree has {current_player.tree}")
+            print(f"\n{current_player.fruit}' turn!")
+            print(f"{current_player.fruit}' basket has {current_player.basket}")
+            print(f"{current_player.fruit}' tree has {current_player.tree}")
             
             continue_play = current_player.play_turn(self.gamewheel)
-            current_player_ix = current_player_ix + 1 if current_player_ix < self.num_players else 0
+            
+            if continue_play:
+                print(f"{current_player.fruit}' basket has {current_player.basket}")
+                print(f"{current_player.fruit}' tree has {current_player.tree}")
+            
+            current_player_ix = current_player_ix + 1 if current_player_ix < (self.num_players - 1) else 0
 
         print("Game over!")
+        
+        return self.num_rounds, self.num_turns, current_player.fruit
 
 
 class Player():
-    def __init__(self, color):
+    def __init__(self, fruit):
         self.basket = 0
         self.tree = 10
-        self.color = color
+        self.fruit = fruit
 
     def play_turn(self, gamewheel):
         choice, consequence = gamewheel.spin_wheel()
-        print(f"The wheel landed on {choice} for {self.color}")
+        print(f"The wheel landed on {choice} for {self.fruit}")
 
         self.basket += consequence
         if self.basket < 0:
             self.basket = 0
         elif self.basket >= 10:
-            print(f"{self.color} won the game!")
+            print(f"{self.fruit} won the game!")
             
             return False
 
@@ -74,6 +88,8 @@ class GameWheel():
         choice_consequence = self.choices[choice]
 
         return choice, choice_consequence
+
+
 
 
 
