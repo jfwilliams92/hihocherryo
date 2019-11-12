@@ -56,8 +56,10 @@ class Player():
         self.basket = 0
         self.tree = 10
         self.fruit = fruit
+        self.num_turns = 0
 
     def play_turn(self, gamewheel, verbose):
+        self.num_turns += 1
         choice, consequence = gamewheel.spin_wheel()
         if verbose:
             print(f"The wheel landed on {choice} for {self.fruit}")
