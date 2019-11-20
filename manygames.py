@@ -29,13 +29,13 @@ fig, ax = plt.subplots(2, 2, figsize=(15,15))
 ax = ax.flatten()
 for num_players in range(1, 5):
     num_rounds_list = all_game_stats[num_players]["num_rounds"]
-    ax[0].hist(num_rounds_list, bins=50, alpha=0.25, density=True, label=num_players, cumulative=True)
-    ax[0].legend()
-    ax[0].set_title('Cumulative hist of number of rounds to game completion by num players')
-
-    ax[1].hist(num_rounds_list, bins=50, alpha=0.25, density=True, label=num_players)
+    ax[1].hist(num_rounds_list, bins=50, alpha=0.25, density=True, label=num_players, cumulative=True)
     ax[1].legend()
-    ax[1].set_title('Number of rounds to game completion by num players')
+    ax[1].set_title('Cumulative hist of number of rounds to game completion by num players')
+
+    ax[0].hist(num_rounds_list, bins=50, alpha=0.25, density=True, label=num_players)
+    ax[0].legend()
+    ax[0].set_title('Number of rounds to game completion by num players')
 
 
     num_turns_list = all_game_stats[num_players]["num_turns"]
